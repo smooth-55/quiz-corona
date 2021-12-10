@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style type="text/css">
+    .bs-example {
+      margin: 0px;
+
+    }
+    .bg-dark {
+    background-color: #212529!important;
+}
+    .navbar-brand {
+      font-size: 20px;
+      font-family: sans-serif;
+
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="bs-example">
+    <nav class="navbar navbar-expand-md  navbar-dark fixed-top" style="background-color: #000000;">
+    <a style="color: #ffffff;text-decoration: none; " href="/"><font face = "Comic sans MS" size =" 5">Mathematical Quiz</font><br /></a>  
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="navbar-nav">
+          <a style="
+          padding-left: 30px;
+      " href="/" class="nav-item nav-link active">Home</a>
+
+          <a href="/student/studentclick" class="nav-item nav-link">Student</a>
+          <a href="/adminclick" class="nav-item nav-link">Admin</a>
+
+
+        </div>
+
+        <div class="navbar-nav">
+           <p class="text-white" >Active Cases: &nbsp;<p  class="text-white" id="active"></p> </p> &nbsp;
+         <p class="text-white" > New Cases:&nbsp; <p class="text-white"  id="new"></p></p>&nbsp;
+           <p class="text-white" >Total cases: &nbsp;<p  class="text-white" id="total_cases"></p></p>&nbsp;
+           <p class="text-white" >Total recovered:&nbsp; <p class="text-white"  id="recovered"></p></p>&nbsp;
+          <p class="text-white" >Total deaths : &nbsp;<p class="text-white"  id="total_deaths"></p></p>&nbsp;
+
+          <p></p>
+          
+        </div>
+
+      </div>
+    </nav>
+  </div>
+
+
+</body>
+
+<script>
+
+  fetch("https://covid-193.p.rapidapi.com/statistics?country=nepal", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "covid-193.p.rapidapi.com",
+		"x-rapidapi-key": "58143077ebmshbf1f9a97d92c8c5p1caa60jsnc4ed2ba83104"
+	}
+})
+.then(response => {
+    return response.json()
+}).then(data => {
+
+    const api = data.response[0]
+
+    let DeathCases = document.getElementById("total_deaths")
+    let Cases = document.getElementById("total_cases")
+    let CurrentCases = document.getElementById("new")
+    let activeCurrentCases = document.getElementById("active")
+    let TotalRecoveredCases = document.getElementById("recovered")
+
+    CurrentCases.innerText = api.cases.new
+    activeCurrentCases.innerText = api.cases.active
+    recovered.innerText = api.cases.recovered
+    DeathCases.innerText = api.deaths.total
+    Cases.innerText = api.cases.total
+    
+})
+</script>
+
+</html>

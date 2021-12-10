@@ -1,0 +1,6 @@
+env/
+ENV/
+.env
+.ENV
+
+README.md
