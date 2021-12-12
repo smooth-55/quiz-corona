@@ -147,6 +147,16 @@
     #check {
       display: none;
     }
+
+    .right_area{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .log{
+      font-size: 20px !important;
+    }
   </style>
 
 
@@ -161,14 +171,19 @@
   <!--header area start-->
   <header>
     <label for="check">
-      <i style="left: 200px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
+      <i style="left: 250px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
     </label>
     <div class="left_area">
-      <h3>Online Quiz</h3>
+      <h3 class="log"> Mathematical Quiz</h3>
     </div>
-    <div class="right_area">
-      <a href="/logout" class="logout_btn">Logout</a>
-    </div>
+    <div class="right_area" style="margin-top: -60px; margin-right: 170px;">
+      <p class="text-white" >Active Cases: &nbsp;<p  class="text-white" id="active"></p> </p> &nbsp;
+         <p class="text-white" > New Cases:&nbsp; <p class="text-white"  id="new"></p></p>&nbsp;
+           <p class="text-white" >Total cases: &nbsp;<p  class="text-white" id="total_cases"></p></p>&nbsp;
+           <p class="text-white" >Total recovered:&nbsp; <p class="text-white"  id="recovered"></p></p>&nbsp;
+          <p class="text-white" >Total deaths : &nbsp;<p class="text-white"  id="total_deaths"></p></p>&nbsp;
+        </div>
+        <a href="/logout" class="logout_btn">Logout</a>
   </header>
   <!--header area end-->
   <!--sidebar start-->
@@ -199,6 +214,37 @@
     <br><br><br>
 
   </div>
+
+
+<script>
+
+  fetch("https://covid-193.p.rapidapi.com/statistics?country=nepal", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "covid-193.p.rapidapi.com",
+		"x-rapidapi-key": "58143077ebmshbf1f9a97d92c8c5p1caa60jsnc4ed2ba83104"
+	}
+})
+.then(response => {
+    return response.json()
+}).then(data => {
+
+    const api = data.response[0]
+
+    let DeathCases = document.getElementById("total_deaths")
+    let Cases = document.getElementById("total_cases")
+    let CurrentCases = document.getElementById("new")
+    let activeCurrentCases = document.getElementById("active")
+    let TotalRecoveredCases = document.getElementById("recovered")
+
+    CurrentCases.innerText = api.cases.new
+    activeCurrentCases.innerText = api.cases.active
+    recovered.innerText = api.cases.recovered
+    DeathCases.innerText = api.deaths.total
+    Cases.innerText = api.cases.total
+    
+})
+</script>
   <!--content end-->
 </body>
 
