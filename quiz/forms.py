@@ -23,7 +23,7 @@ class QuestionForm(forms.ModelForm):
     # to_field_name this will fetch corresponding value  user_id present in course model and return it
     courseID = forms.ModelChoiceField(
         queryset=models.Course.objects.all(),
-        empty_label="Course Name",
+        empty_label="Select Quiz",
         to_field_name="id",
     )
 
@@ -39,3 +39,4 @@ class QuestionForm(forms.ModelForm):
             "answer",
         ]
         widgets = {"question": forms.Textarea(attrs={"rows": 3, "cols": 50})}
+        widgets = {"answer": forms.Select(attrs={"default": "Select Correct Option"})}
